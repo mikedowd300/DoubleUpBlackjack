@@ -190,5 +190,13 @@ export const customizationLinks: CustomizationLink[] = [
     title: "Counting System",
     description: "Are you using the best counting strategy. In addition to the traditional systems, create and save your own counting systems. You can even use the 'Deviations' section to find index plays.",
     linkUrl: "/counting",
+  },{
+    title: "Insurance Plan",
+    description: "When insurance is offered, have a plan of accepting it or not.",
+    linkUrl: "/insurance",
   }
+];
+
+export const playerFirst2: string [] = [
+  'AA', 'TT', '99', '88', '77', '66', '55', '44', '33', '22', 'AT', 'A9', 'A8', 'A7', 'A6', 'A5', 'A4', 'A3', 'A2', '20', '19', '18', '17', '16', '15', '14', '13', '12', '11', '10', '9', '8', '7', '6', '5'
 ];

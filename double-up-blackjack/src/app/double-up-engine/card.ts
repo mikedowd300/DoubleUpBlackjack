@@ -17,21 +17,10 @@ export class Card {
     this.cardSuitlessName = this.name.split('')[0];
   }
 
-  addToCountValueMethodsMap(method: CountingMethod) {
-    if(!this.countMethodNames.includes(method.name)) {
-      this.countValuesByMethodType[method.name] = method.valuesMap[this.cardSuitlessName];
-      this.countMethodNames.push(method.name);
-      console.log(this.name.split('')[0]);
-      console.log(this.countValuesByMethodType)
+  addToCountValueMethodsMap(method: CountingMethod): void {
+    if(!this.countMethodNames.includes(method.title)) {
+      this.countValuesByMethodType[method.title] = method.valuesMap[this.cardSuitlessName];
+      this.countMethodNames.push(method.title);
     }
-  }
-
-  getCountValue(methodName: string): number {
-    if(!this.countMethodNames.includes(methodName)) {
-      console.log('Trying to count for the' , methodName, 'method, but it does not exist')
-    }
-    return this.countMethodNames.includes(methodName) 
-      ? this.countValuesByMethodType[methodName]
-      : 0
   }
 }

@@ -1,20 +1,18 @@
 import { LocalStorageService } from "../services/local-storage.service";
-import { LocalStorageItemsEnum, RoundingMethodEnum, TrueCountTypeEnum } from '../models-constants-enums/enumerations';
+import { LocalStorageItemsEnum, TrueCountTypeEnum } from '../models-constants-enums/enumerations';
 import { ShoeConditions } from "../models-constants-enums/models";
 import { Card } from "./card";
 import { CountingMethod } from '../models-constants-enums/models';
 
 export class Shoe {
-  // THERE ARE NO 10s IN A SPANISH 21 DECK
 
   private suites: string[] = ['S', 'H', 'C', 'D'];
   cards: Card[] = [];
-  // private hiLoRunningCount: number = 0;
-  private runningCounts: {};
-  private startingCounts: {};
+  public runningCounts: {} = {};
+  private startingCounts: {} = {};
   private discardTray: Card[] = [];
   private shoeCount: number = 0;
-  private isFreshShoe: boolean = true; // IS THIS USED?
+  private isFreshShoe: boolean = true;
   private handsCount: number = 1;
   decksPerShoe: number;
   private cardsBurned: number;
@@ -22,7 +20,7 @@ export class Shoe {
   private countBurnCard: boolean;
   private cardsPerDeck: number = 52;
   private suitsPerDeck: number = 4;
-  private cardsPerSuit: number = 12;
+  private cardsPerSuit: number = 13;
   private countMethodNames: string[] = [];
   private trueCountTypeMethodMap;
   
@@ -36,15 +34,17 @@ export class Shoe {
       [TrueCountTypeEnum.FULL_ROUNDED]: this.getTrueCountRoundByMethodName,
       [TrueCountTypeEnum.HALF_FLOOR]: this.getTrueCountHalfFloorByMethodName,
       [TrueCountTypeEnum.HALF_ROUNDED]: this.getTrueCountHalfRoundByMethodName,
-    }
+    };
   }
 
-  addCountinMethod(method: CountingMethod) {
-    if(!this.countMethodNames.includes(method.name)) {
-      this.runningCounts[method.name] = method.startingCount;
-      this.startingCounts[method.name] = method.startingCount;
-      this.countMethodNames.push(method.name);
+  addCountingMethod(method: CountingMethod): void {
+    this.runningCounts[method.title] = method.startingCount;
+    this.startingCounts[method.title] = method.startingCount;
+    if(!this.countMethodNames.includes(method.title)) {
+      this.countMethodNames.push(method.title);
     }
+    this.cards.forEach(c => c.addToCountValueMethodsMap(method));
+    this.discardTray.forEach(c => c.addToCountValueMethodsMap(method));
   }
 
   initializeShoe(): void {
@@ -53,13 +53,6 @@ export class Shoe {
     this.shufflePoint = this.conditions.shufflePoint / 100;
     this.countBurnCard = this.conditions.countBurnCard;
     this.createShoe();
-  }
-
-  initializeRound() {
-    console.log('------ INITIALIZING SHOE FOR ', this.getHandId(),' --------');
-    this.countMethodNames
-      .forEach(name => console.log(`Running Count for ${name}: ${this.getRunningCountsByMethodName(name)}`))
-    console.log('--------------------------------------------');
   }
 
   createShoe(): void {
@@ -96,14 +89,17 @@ export class Shoe {
       case 'A': { 
         return 0; 
       } 
-      case 'J': { 
+      case 'T': { 
         return 9; 
+      }
+      case 'J': { 
+        return 10; 
       } 
       case 'Q': { 
-        return 10; 
+        return 11; 
       }
       case 'K': { 
-        return 11; 
+        return 12; 
       }
       default: { 
         return parseInt(val) - 1; 
@@ -138,7 +134,6 @@ export class Shoe {
       oldShoe = [...oldShoe.slice(0, index), ...oldShoe.slice(index + 1)];
     }
     this.countMethodNames.forEach(name => this.runningCounts[name] = this.startingCounts[name]);
-    // this.hiLoRunningCount = 0;
     if(incShoeCount) {
       this.shoeCount += 1;
     }
@@ -146,7 +141,6 @@ export class Shoe {
   }
 
   updateLocalStorageShoe = (): void => {
-    // TODO - verify that all expected card values exist in the shoe and log error if they do not
     const minifiedShoe: string = this.cards.map(({ name }) => name).join(',');
     let shoes: any = this.localStorage.getItem(LocalStorageItemsEnum.SHOES)
       ? JSON.stringify(this.localStorage.getItem(LocalStorageItemsEnum.SHOES))
@@ -161,8 +155,7 @@ export class Shoe {
     for(let i = 0; i < this.cardsBurned; i++) {
       burnCards.push(this.cards.pop());
       if(this.countBurnCard) {
-        this.setHiLoRunningCounts(burnCards[i]);
-        // this.setHiLoRunningCount(burnCards[i]?.hiLoCountValue);
+        this.setRunningCounts(burnCards[i]);
       }
     }
     this.discard(burnCards);
@@ -179,59 +172,49 @@ export class Shoe {
 
   deal(): Card {
     const card: Card = this.cards.pop();
-    // this.setHiLoRunningCount(card?.hiLoCountValue);
-    this.setHiLoRunningCounts(card);
+    this.setRunningCounts(card);
     return card;
   };
 
   dealHoleCard(): Card {
     // This card does not update the running count
-    const card = this.cards.pop();
+    const card: Card = this.cards.pop();
     card.isHoleCard = true;
     return card;
   }
 
   flipHoleCard(card: Card): void {
     card.isHoleCard = false;
-    // this.setHiLoRunningCount(card.hiLoCountValue);
-    this.setHiLoRunningCounts(card);
+    this.setRunningCounts(card);
   }
 
-  // setHiLoRunningCount = (count: number): void => {
-  //   this.hiLoRunningCount += count;
-  // }
-  setHiLoRunningCounts = (card: Card): void => {
-    this.countMethodNames.forEach(name => this.runningCounts[name] += card.countValuesByMethodType[name]);
+  setRunningCounts = (card: Card): void => {
+    this.countMethodNames
+      .forEach(name => this.runningCounts[name] += card.countValuesByMethodType[name]);
   }
 
   // This is the uncounted decks remaining
   getDecksRemaining = (): number => {
-    return  (this.cards.length + this.cardsBurned - (this.conditions.countBurnCard ? 1 : 0)) / this.cardsPerDeck;
+    return (this.cards.length + this.cardsBurned - (this.conditions.countBurnCard ? 1 : 0)) / this.cardsPerDeck;
   }
 
   getRunningCountsByMethodName = (methodName: string): number => this.runningCounts[methodName];
 
-  getTrueCountsFloorByMethodName = (method: CountingMethod): number => {
-    if(!method.convertsToTC) {
-      return this.runningCounts[method.name];
-    } 
-    return (Math.round(this.getRunningCountsByMethodName(method.name) * 10) / (10 * this.getDecksRemaining())) < 0
-      ? Math.ceil((Math.round(this.getRunningCountsByMethodName(method.name) * 10) / (10 * this.getDecksRemaining())))
-      : Math.floor((Math.round(this.getRunningCountsByMethodName(method.name) * 10) / (10 * this.getDecksRemaining())));
+  getRunningCounts = () => this.runningCounts;
+
+  getTrueCountsFloorByMethodName = (methodTitle: string): number => {
+    return (Math.round(this.getRunningCountsByMethodName(methodTitle) * 10) / (10 * this.getDecksRemaining())) < 0
+      ? Math.ceil((Math.round(this.getRunningCountsByMethodName(methodTitle) * 10) / (10 * this.getDecksRemaining())))
+      : Math.floor((Math.round(this.getRunningCountsByMethodName(methodTitle) * 10) / (10 * this.getDecksRemaining())));
   }
     
-  getTrueCountRoundByMethodName = (method: CountingMethod): number => {
-    if(!method.convertsToTC) {
-      return this.runningCounts[method.name];
-    } 
-    return Math.round((this.getRunningCountsByMethodName(method.name) * 10) / (10 * this.getDecksRemaining()));
+  getTrueCountRoundByMethodName = (methodTitle: string): number => {
+    return Math.round((this.getRunningCountsByMethodName(methodTitle) * 10) / (10 * this.getDecksRemaining()));
   }
 
-  getTrueCountHalfFloorByMethodName = (method: CountingMethod): number => {
-    if(!method.convertsToTC) {
-      return this.runningCounts[method.name];
-    } 
-    let whole = Math.round((this.getRunningCountsByMethodName(method.name) * 100) / this.getDecksRemaining()) / 100;
+  getTrueCountHalfFloorByMethodName = (methodTitle: string): number => {
+    let whole = 
+      Math.round((this.getRunningCountsByMethodName(methodTitle) * 100) / this.getDecksRemaining()) / 100;
     const isNegative = whole < 0;
     if(isNegative) {
       whole = whole * -1;
@@ -244,11 +227,8 @@ export class Shoe {
     return isNegative ? (-1) * (intPart + roundedDecimal) : intPart + roundedDecimal
   } 
 
-  getTrueCountHalfRoundByMethodName = (method: CountingMethod): number => {
-    if(!method.convertsToTC) {
-      return this.runningCounts[method.name];
-    } 
-    let whole = Math.round((this.getRunningCountsByMethodName(method.name) * 100) / this.getDecksRemaining()) / 100;
+  getTrueCountHalfRoundByMethodName = (methodTitle: string): number => {
+    let whole = Math.round((this.getRunningCountsByMethodName(methodTitle) * 100) / this.getDecksRemaining()) / 100;
     const isNegative = whole < 0;
     if(isNegative) {
       whole = whole * -1;
@@ -261,9 +241,14 @@ export class Shoe {
     return isNegative ? (-1) * (intPart + roundedDecimal) : intPart + roundedDecimal
   }
 
-  getTrueCount = (trueCountType: TrueCountTypeEnum): number => this.getDecksRemaining() === 0
-    ? 0
-    : this.trueCountTypeMethodMap[trueCountType]();
+  getTrueCount(method: CountingMethod, trueCountType: TrueCountTypeEnum): number {
+    if(method.convertsToTC) {
+      return this.getDecksRemaining() === 0
+        ? 0
+        : this.trueCountTypeMethodMap[trueCountType](method.title);
+    }
+    return this.runningCounts[method.title];
+  }
 
   getShoeCount = (): number => this.shoeCount;
 
@@ -272,13 +257,12 @@ export class Shoe {
   getHandsCount = (): number => this.handsCount;
 
   incHandCount = (): void => {
-    // Used in table.ts when a new hand is dealt
     this.handsCount += 1;
   }
 
   getHandId = (): string => `${this.shoeCount}-${this.handsCount}`;
 
-  getCardsDealt() {
+  getCardsDealt(): number {
     return this.discardTray.length;
   }
 }

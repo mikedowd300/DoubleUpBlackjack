@@ -47,7 +47,6 @@ export enum PayRatioEnum {
   ONE_to_ONE = '1/1',
 };
 
-
 export enum LocalStorageItemsEnum {
   SHOES = 'shoes',
   CONDITIONS = 'conditions',
@@ -60,6 +59,7 @@ export enum LocalStorageItemsEnum {
   TABLE_CONFIG = 'tableConfig',
   COUNT = 'count',
   DEVIATION_CHART = 'deviationChart',
+  INSURANCE = 'insurance',
 }
 
 export enum ChipTypeEnum {
@@ -94,4 +94,40 @@ export enum CardNameEnum {
   C_J = 'J',
   C_Q = 'Q',
   C_K = 'K',
+}
+
+export enum HandOptionEnums {
+  HIT = 'hit',
+  STAY = 'stay',
+  SPLIT = 'split',
+  DOUBLE = 'double',
+  DOUBLE_UP = 'doubleup',
+  SURRENDER = 'surrender',
+}
+
+export enum SpotStatusEnum {
+  AVAILABLE = 'available',
+  RESERVED = 'reserved',
+  TAKEN = 'taken',
+}
+
+export enum HandActionEnum {
+  HIT = 'hit',
+  SPLIT = 'split',
+  DOUBLE = 'double',
+  DOUBLE_UP = 'doubleup',
+  INSURE = 'insure',
+  SURRENDER = 'surrender',
+}
+
+export enum HandOutcomeEnum {
+  WON_WITH_BETTER_HAND = "Won with better hand",
+  WON_BY_DEALER_BUST = "Won because dealer busted",
+  PUSHED = "Pushed",
+  BUSTED = "Busted",
+  HALTED = "Halted",
+  BLACKJACK = "Blackjack",
+  LOST_TO_BETTER_HAND = "Lost to better hand",
+  LOST_TO_BLACKJACK = "Lost to Dealer's Blackjack",
+  SURRENDERED = "Surrendered",
 }

@@ -11,6 +11,7 @@ export const ploppy1: PlayerConfig = {
   tippngStrategyTitle: 'Cheap Tipper',
   wongingStrategyTitle: 'Never Wong',
   countStrategyTitle: 'Hi Lo',
+  insurancePlanTitle: 'Never Insure',
 };
 
 export const ploppy2: PlayerConfig = {
@@ -24,6 +25,7 @@ export const ploppy2: PlayerConfig = {
   tippngStrategyTitle: 'Never Tips',
   wongingStrategyTitle: 'Never Wong',
   countStrategyTitle: 'No Count',
+  insurancePlanTitle: 'Never Insure',
 };
 
 export const playerTitles: string[] = ["Ploppy 1", "Ploppy 2"];

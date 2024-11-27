@@ -5,11 +5,11 @@ export const defaultTable: TableConfig = {
   players: [
     {
       seatNumber: 4,
-      playerConfigTitle: 'Ploppy 1'
+      playerConfigTitle: 'Ploppy 1',
     },
     {
       seatNumber: 5,
-      playerConfigTitle: 'Ploppy 2'
+      playerConfigTitle: 'Ploppy 2',
     }
   ],
   conditionsTitle: "Default Conditions",

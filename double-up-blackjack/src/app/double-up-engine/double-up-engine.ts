@@ -14,6 +14,6 @@ export class DoubleUpEngine {
 
   createTable(simInfo: SimInfo) {
     this.table = new Table(simInfo, this.localStorageService);
-    // this.vwService.simData$.next(this.table.history.rounds);
+    this.vwService.simData$.next(this.table.history.records);
   }
 }

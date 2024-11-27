@@ -37,7 +37,6 @@ export class UnitResizingComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    console.log('DESTROYING: UnitResizeStrategy');
     this.destroy$.next(true);
   }
 

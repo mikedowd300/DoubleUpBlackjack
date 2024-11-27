@@ -10,11 +10,12 @@ import { LocalStorageItemsEnum } from '../../../models-constants-enums/enumerati
 import { PlayerConfig } from '../../../models-constants-enums/models';
 import { ploppy1, defaultPlayers } from '../../../default-configs/player-config';
 import { betSpreadTitles } from '../../../default-configs/bet-spread-strategies';
-import { countTitles } from '../../../default-configs/count-strategies';
+import { countTitles } from '../../../default-configs/counting-methods';
 import { playTitles } from '../../../default-configs/play-strategies';
 import { tippingTitles } from '../../../default-configs/tipping-plan';
 import { unitResizingTitles } from '../../../default-configs/unit-resize-strategies';
 import { wongingTitles } from '../../../default-configs/wonging-strategies';
+import { insuranceTitles } from '../../../default-configs/insurance-plan';
 
 @Component({
   selector: 'player',
@@ -40,7 +41,8 @@ export class PlayerComponent implements OnDestroy, OnInit {
     [this.localStorageItemsEnum.UNIT_RESIZE]: unitResizingTitles,
     [this.localStorageItemsEnum.TIPPING]: tippingTitles,
     [this.localStorageItemsEnum.WONG]: wongingTitles,
-    [this.localStorageItemsEnum.COUNT]: countTitles
+    [this.localStorageItemsEnum.COUNT]: countTitles,
+    [this.localStorageItemsEnum.INSURANCE]: insuranceTitles
   };
 
   selectLabels: string[] = [
@@ -49,7 +51,8 @@ export class PlayerComponent implements OnDestroy, OnInit {
     "Select a unit resizing strategy",
     "Select a tipping strategy",
     "Select a wonging strategy",
-    "Select a counting strategy"
+    "Select a counting strategy",
+    "Select an insurance plan",
   ];
 
   strategyTitles = [
@@ -58,7 +61,8 @@ export class PlayerComponent implements OnDestroy, OnInit {
     this.localStorageItemsEnum.UNIT_RESIZE,
     this.localStorageItemsEnum.TIPPING,
     this.localStorageItemsEnum.WONG,
-    this.localStorageItemsEnum.COUNT
+    this.localStorageItemsEnum.COUNT,
+    this.localStorageItemsEnum.INSURANCE,
   ];
 
   titlePropertyMap = {
@@ -67,7 +71,8 @@ export class PlayerComponent implements OnDestroy, OnInit {
     [this.localStorageItemsEnum.UNIT_RESIZE]: 'unitResizingStrategyTitle',
     [this.localStorageItemsEnum.TIPPING]: 'tippngStrategyTitle',
     [this.localStorageItemsEnum.WONG]: 'wongingStrategyTitle',
-    [this.localStorageItemsEnum.COUNT]: 'countStrategyTitle'
+    [this.localStorageItemsEnum.COUNT]: 'countStrategyTitle',
+    [this.localStorageItemsEnum.INSURANCE]: 'insurancePlanTitle',
   }
 
   constructor(

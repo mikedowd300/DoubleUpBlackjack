@@ -14,7 +14,7 @@ export class LocalStorageService {
     [LocalStorageItemsEnum.WONG]: 'Never Wong',
     [LocalStorageItemsEnum.UNIT_RESIZE]: 'Never Resize',
     [LocalStorageItemsEnum.PLAY]: 'Basic H17',
-    [LocalStorageItemsEnum.COUNT]: 'No Counts',
+    [LocalStorageItemsEnum.COUNT]: 'No Count',
   }
 
   strategiesOfPlayer = [

@@ -28,7 +28,7 @@ export const illustriousH17Strategy: PlayStrategy = {
       conditions: ""
     },
     "2-55": {
-      options: "D H ST",
+      options: "DD H ST",
       conditions: ""
     },
     "2-44": {

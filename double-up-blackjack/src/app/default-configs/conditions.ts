@@ -44,7 +44,7 @@ export const deviationConditions: Conditions = {
   cardsBurned: 1,
   minBet: 5,
   maxBet: 1000,
-  shufflePoint: 75,
+  shufflePoint: 83,
   countBurnCard: false,
   handsPerDealer: 500,
   canDoubleOn:  DoubleDownOnEnum.DA2,
