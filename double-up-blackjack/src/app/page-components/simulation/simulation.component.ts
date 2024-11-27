@@ -22,7 +22,7 @@ export class SimulationPageComponent implements OnInit {
   @ViewChild('startSimButton') startSimButton: ElementRef;
 
   iterationOptions: any[] = [ 1, 5, 10, 100, 1000, 10000, 50000, 100000, 1000000, 'Other' ];
-  iterations: number;
+  iterations: number = 1;
   
   allTableTitles: string[];
   storedTableTitles: string[];
@@ -45,9 +45,8 @@ export class SimulationPageComponent implements OnInit {
 
   constructor(
     public vmService: ViewModelService,
-    //   private uiToLogicService: UItoLogicService,
-      private localStorageService: LocalStorageService,
-      private router: Router
+    private localStorageService: LocalStorageService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {

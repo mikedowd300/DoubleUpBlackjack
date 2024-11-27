@@ -10,7 +10,9 @@
     "playerIncreasesBet": false,
     "everyXHands": null,
     "tipSplitHandToo": false,
-    "doubleOnDouble": false,
+    "doubleDownTip": false,
+    "doubleUpTip": false,
+    "insureTip": false,
     "tipWongHands": false
   }
 }

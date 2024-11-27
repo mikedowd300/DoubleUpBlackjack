@@ -27,7 +27,8 @@ export class TippingComponent implements OnInit, OnDestroy {
   defaultStrategiesObj = {  ...defaultTippingPlans };
   howOftenTippingBooleanKeys: string[] = ['afterBlackjack', 'dealerJoins', 'dealerLeaves', 'tipFirstHandOfShoe', 'playerIncreasesBet'];
   howOftenTippingNumberKeys: string[] = ['everyXHands'];
-  wongSplitDoubleTippingKeys: string[] = ['tipSplitHandToo', 'doubleOnDouble', 'tipWongHands', 'insureDealerTip'];
+  wongSplitDoubleTippingKeys: string[] = ['tipSplitHandToo', 'doubleDownTip', 'doubleUpTip', 'tipWongHands', 'insureTip'];
+
   keyDescriptionMap = {
     "afterBlackjack": "After a blackjack",
     "dealerJoins": "When a new dealer joins the table",
@@ -36,9 +37,10 @@ export class TippingComponent implements OnInit, OnDestroy {
     "playerIncreasesBet": "When the player increases the bet",
     "everyXHands": ["every", "hands"],
     "tipSplitHandToo": "Add a tip when splitting a hand with a tip",
-    "doubleOnDouble": "Double the tip when doubling",
+    "doubleDownTip": "Double the tip when doubling down",
+    "doubleUpTip": "Double the tip when doubling up",
     "tipWongHands": "Tip wonged hands",
-    "insureDealerTip": "Insure Dealer's Tip",
+    "insureTip": "Insure Dealer's Tip",
   };
   private destroy$: Subject<boolean> = new Subject();
 

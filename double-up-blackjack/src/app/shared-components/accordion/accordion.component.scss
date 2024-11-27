@@ -1,0 +1,16 @@
+@use '../../../scss/variables.scss';
+
+:host {
+
+  .accordion-container {
+    max-height: 0;
+    transition: max-height 0.4s, padding-left 0.4s;
+    overflow: scroll;
+    background-color: variables.$primary-color;
+
+    &.expanded {
+      max-height: 300px;
+      padding-left: 12px;
+    }
+  }
+}

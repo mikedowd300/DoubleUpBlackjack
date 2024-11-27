@@ -11,9 +11,10 @@ export const cheapTipper: TippingPlan = {
   playerIncreasesBet: false,
   everyXHands: null,
   tipSplitHandToo: false,
-  doubleOnDouble: false,
+  doubleDownTip: false,
+  doubleUpTip: false,
   tipWongHands: false,
-  insureDealerTip: false,
+  insureTip: false,
 };
 
 export const generousTipper: TippingPlan = {
@@ -27,9 +28,10 @@ export const generousTipper: TippingPlan = {
   playerIncreasesBet: true,
   everyXHands: 10, 
   tipSplitHandToo: true,
-  doubleOnDouble: true,
+  doubleDownTip: true,
+  doubleUpTip: true,
   tipWongHands: true,
-  insureDealerTip: true,
+  insureTip: true,
 };
 
 export const neverTips: TippingPlan = {
@@ -43,9 +45,10 @@ export const neverTips: TippingPlan = {
   playerIncreasesBet: false,
   everyXHands: null, 
   tipSplitHandToo: false,
-  doubleOnDouble: false,
+  doubleDownTip: false,
+  doubleUpTip: false,
   tipWongHands: false,
-  insureDealerTip: false,
+  insureTip: false,
 };
 
 export const tippingTitles: string[] = [

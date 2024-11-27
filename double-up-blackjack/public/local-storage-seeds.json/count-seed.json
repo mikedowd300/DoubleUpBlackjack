@@ -17,6 +17,7 @@
     },
     "runningCountStartsAt": 0,
     "trueCountPreference": "fullFloor",
-    "convertToTrueCount": true
+    "convertToTrueCount": true,
+    "useHalfCount": false
   }
 }

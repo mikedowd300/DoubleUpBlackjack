@@ -40,12 +40,12 @@ export class WongingComponent implements OnInit, OnDestroy {
 
   addHand() {
     if(this.activeStrategy.wongedHands.length === 0) {
-      this.activeStrategy.wongedHands.push({ enter: 0, exitBelow: 0});
+      this.activeStrategy.wongedHands.push({ enterAt: 0, exitBelow: 0, isActive: false });
     } else {
       const lastIndex = this.activeStrategy.wongedHands.length - 1;
-      const enter = this.activeStrategy.wongedHands[lastIndex].enter;
+      const enterAt = this.activeStrategy.wongedHands[lastIndex].enterAt;
       const exitBelow = this.activeStrategy.wongedHands[lastIndex].exitBelow;
-      this.activeStrategy.wongedHands.push({ enter, exitBelow });
+      this.activeStrategy.wongedHands.push({ enterAt, exitBelow, isActive: false });
     }
   }
 

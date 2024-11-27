@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { SimInfo } from '../models-constants-enums/models';
-
+import { TableRecord } from '../history/history-models';
 
 @Injectable({
   providedIn: 'root'
@@ -9,17 +9,12 @@ import { SimInfo } from '../models-constants-enums/models';
 export class ViewModelService {
 
   public showHeader$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
-
   private nullInfo: SimInfo = { tableSkeleton: null, iterations: null };
   playerHandles: string[] = [];
   private simInfo: SimInfo = this.nullInfo;
   private allowNavigationToDashboard: boolean = false;
-
-  // public simData$: BehaviorSubject<TableRound[]> = new BehaviorSubject<TableRound[]>(null);
-  
-  // public deviationData$: BehaviorSubject<TableRound[]> = new BehaviorSubject<TableRound[]>(null);
-  // public showDeviationResultsSpinner$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-  // public showDeviationResults$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  public simData$: BehaviorSubject<TableRecord[]> = new BehaviorSubject<TableRecord[]>(null);
+  public tippedAway$: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
   constructor() { }
 

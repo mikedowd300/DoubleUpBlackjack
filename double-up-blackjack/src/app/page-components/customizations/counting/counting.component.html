@@ -15,7 +15,7 @@
         <div class="input-wrapper">
           <input 
             type="number"
-            [(ngModel)]="activeStrategy.count[card]"
+            [(ngModel)]="activeStrategy.valuesMap[card]"
           >
         </div>
       </div>
@@ -28,7 +28,7 @@
           <div class="input-wrapper">
             <input 
               type="number"
-              [(ngModel)]="activeStrategy.count[card]"
+              [(ngModel)]="activeStrategy.valuesMap[card]"
             >
           </div>
         </div>
@@ -41,7 +41,7 @@
           <div class="input-wrapper">
             <input 
               type="number"
-              [(ngModel)]="activeStrategy.count[card]"
+              [(ngModel)]="activeStrategy.valuesMap[card]"
             >
           </div>
         </div>
@@ -55,16 +55,38 @@
       <div class="input-wrapper">
         <input 
           type="number"
-          [(ngModel)]="activeStrategy.runningCountStartsAt"
+          [(ngModel)]="activeStrategy.startingCount"
+        >
+      </div>
+    </div>
+
+    <div class="card-info-wrapper rounding-method">
+      @for(method of roundingMethods; track method;) {
+      <div class="row">
+        <label for="">{{ method }}</label>
+        <input 
+          type="radio"
+          [checked]="activeStrategy.roundingMethod === method"
+          (change)="updateRoundingMethod(method)"
+        >
+      </div>
+      }
+    </div>
+    <div class="card-info-wrapper half-count">
+      <label>Use half count?</label>
+      <div class="input-wrapper">
+        <input 
+          type="checkbox"
+          [(ngModel)]="activeStrategy.useHalfCount"
         >
       </div>
     </div>
     <div class="card-info-wrapper true-count">
-      <label>Use true Count?</label>
+      <label>Use True Count?</label>
       <div class="input-wrapper">
         <input 
           type="checkbox"
-          [(ngModel)]="activeStrategy.convertToTrueCount"
+          [(ngModel)]="activeStrategy.convertsToTC"
         >
       </div>
     </div>

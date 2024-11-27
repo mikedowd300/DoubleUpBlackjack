@@ -2,12 +2,12 @@
   @if(showLoader$ | async) {
     <loader></loader>
   }
-  <!-- @if(!(showLoader$ | async)) {
+  @if(!(showLoader$ | async)) {
     <div class="dashboard-wrapper">
       <button class="button-tile" (click)="showReplay$.next(true)">Replay Hands</button>
       <button class="button-tile" (click)="showBankrollChart$.next(true)">Bankroll Chart</button>
       <button class="button-tile" (click)="showRoiChart$.next(true)">Roi Chart</button>
-      <button class="button-tile" (click)="showStreakInfo$.next(true)">Losing Streaks</button>
+      <!-- <button class="button-tile" (click)="showStreakInfo$.next(true)">Losing Streaks</button> -->
       <p>Bar Chart of total winnings at each count</p>
       <p>Bar chart of average winnings at each count</p>
       <p>Bar chart of ROI at each count</p>
@@ -22,9 +22,9 @@
   }
   @if(!(showLoader$ | async) && (showReplay$ | async)) {
     <replay
-      [rounds]="rounds$ | async"
+      [history]="history$ | async"
       [showReplay$]="showReplay$"
-      [activeRoundIndex]="activeRoundIndex$ | async"
+      [activeRecordIndex]="activeRecordIndex$ | async"
     ></replay>
   }
   @if(!(showLoader$ | async) && (showBankrollChart$ | async)) {
@@ -35,10 +35,10 @@
     ></bankroll-chart>
   }
   @if(!(showLoader$ | async) && (showRoiChart$ | async)) {
-    <roi-chart
+    <roi-charts
       [showRoiChart$]="showRoiChart$"
-      [rounds$]="rounds$"
-      [handles]="uiToLogicService.playerHandles"
-    ></roi-chart>
-  } -->
+      [history$]="history$"
+      [handles]="vmService.playerHandles"
+    ></roi-charts>
+  }
 </div>

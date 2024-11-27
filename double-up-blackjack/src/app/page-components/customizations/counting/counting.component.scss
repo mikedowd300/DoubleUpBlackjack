@@ -72,8 +72,34 @@
           }
         }
       }
+  
+      .card-info-wrapper.rounding-method {
+        margin-top: 24px;
 
-      .true-count {
+        .row {
+          align-items: center;
+          margin-bottom: 8px;
+
+          label {
+            font-size: 20px;
+            margin-right: 12px;
+          }
+  
+          input[type=radio] {
+            accent-color: variables.$secondary-color;
+            width: 24px;
+            height: 24px;
+            }
+  
+          input[type=checkbox] {
+            width: 40px;
+            transform: scale(3);
+            accent-color: variables.$secondary-color;
+          }
+        }
+      }
+
+      .true-count, .half-count {
         margin-top: 16px;
         margin-left: 8px;
   
@@ -92,8 +118,8 @@
           justify-content: center;
 
           input[type=checkbox] {
-            width: 40px;
-            transform: scale(3);
+            width: 24px;
+            transform: scale(2);
             accent-color: variables.$secondary-color;
           }
         }

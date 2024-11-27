@@ -5,9 +5,9 @@ import { FormsModule } from '@angular/forms';
 import { BehaviorSubject, Subject, takeUntil } from 'rxjs';
 import { ViewModelService } from '../../../services/view-model.service';
 import { StrategySelectorComponent } from '../../../shared-components/strategy-selector/strategy-selector.component';
-import { LocalStorageItemsEnum } from '../../../models-constants-enums/enumerations';
-import { CountingStrategy } from '../../../models-constants-enums/models';
-import { hiLo, defaultCounts } from '../../../default-configs/count-strategies';
+import { LocalStorageItemsEnum, RoundingMethodEnum } from '../../../models-constants-enums/enumerations';
+import { CountingMethod } from '../../../models-constants-enums/models';
+import { hiLo, defaultCounts } from '../../../default-configs/counting-methods';
 
 @Component({
   selector: 'counting',
@@ -18,16 +18,18 @@ import { hiLo, defaultCounts } from '../../../default-configs/count-strategies';
 })
 
 export class CountingComponent implements OnDestroy, OnInit {
-
-  activeStrategy: CountingStrategy;
-  activeStrategy$: BehaviorSubject<CountingStrategy> = new BehaviorSubject<CountingStrategy>(hiLo);
+  activeStrategy: CountingMethod;
+  activeStrategy$: BehaviorSubject<CountingMethod> = new BehaviorSubject<CountingMethod>(hiLo);
   localStorageItemsEnum = LocalStorageItemsEnum;
   title: string = "Add, Edit or Delete a Counting Strategy";
-  defaultStrategy: CountingStrategy = { ...hiLo };
+  defaultStrategy: CountingMethod = { ...hiLo };
   defaultStrategiesObj = {  ...defaultCounts };
   firstCards: string[] = [];
   middleCards: string[] = [];
   lastCards: string[] = [];
+  // selectedRoundingMethod: RoundingMethodEnum = RoundingMethodEnum.OFF;
+  roundingMethods: RoundingMethodEnum[] = [RoundingMethodEnum.OFF, RoundingMethodEnum.UP];
+  useHalfCount: false;
   private destroy$: Subject<boolean> = new Subject();
 
   constructor(public vmService: ViewModelService) {}
@@ -38,8 +40,12 @@ export class CountingComponent implements OnDestroy, OnInit {
       this.activeStrategy = strategy;
       this.firstCards = ['A', '2', '3', '4'];
       this.middleCards = ['5', '6', '7', '8'];
-      this.lastCards = ['9', 'J', 'Q', 'K'];
+      this.lastCards = ['9', 'T', 'J', 'Q', 'K'];
     });
+  }
+
+  updateRoundingMethod(method: RoundingMethodEnum) {
+    this.activeStrategy.roundingMethod = method;
   }
 
   ngOnDestroy(): void {

@@ -3,24 +3,24 @@ import { WongStrategy } from "../models-constants-enums/models";
 export const wong2MoreSpots: WongStrategy = {
   title: '2 More Spots',
   wongedHands: [
-    { enter: 3, exitBelow: 1 },
-    { enter: 4, exitBelow: 2 },
+    { enterAt: 3, exitBelow: 1, isActive: false },
+    { enterAt: 4, exitBelow: 2, isActive: false },
   ]
 };
 
 export const wong3MoreSpots: WongStrategy = {
   title: '3 More Spots',
   wongedHands: [
-    { enter: 3, exitBelow: 1 },
-    { enter: 4, exitBelow: 2 },
-    { enter: 5, exitBelow: 3 },
+    { enterAt: 3, exitBelow: 1, isActive: false },
+    { enterAt: 4, exitBelow: 2, isActive: false },
+    { enterAt: 5, exitBelow: 3, isActive: false },
   ]
 };
 
 export const wong1MoreSpot: WongStrategy = {
-  title: '1 More Spots',
+  title: '1 More Spot',
   wongedHands: [
-    { enter: 2, exitBelow: 1 },
+    { enterAt: 2, exitBelow: 1, isActive: false },
   ]
 };
 
@@ -30,15 +30,15 @@ export const neverWong: WongStrategy = {
 };
 
 export const wongingTitles: string[] = [
+  '1 More Spot', 
   '2 More Spots', 
   '3 More Spots', 
-  '1 More Spots', 
   'Never Wong'
 ];
 
 export const defaultWongings: { [k: string]: WongStrategy } = {
+  '1 More Spot': wong1MoreSpot, 
   '2 More Spots': wong2MoreSpots, 
   '3 More Spots': wong3MoreSpots, 
-  '1 More Spots': wong1MoreSpot, 
   'Never Wong': neverWong,
 };

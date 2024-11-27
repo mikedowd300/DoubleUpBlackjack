@@ -7,17 +7,20 @@ import { ConditionsComponent } from './page-components/customizations/conditions
 import { CountingComponent } from './page-components/customizations/counting/counting.component';
 import { CustomizationsPageComponent } from './page-components/customizations/customizations.component';
 import { DashboardComponent } from './page-components/dashboard/dashboard.component';
-import { DeviationChartingComponent } from './page-components/deviations/deviation-charting/deviation-charting.component';
-import { DeviationsPageComponent } from './page-components/deviations/deviations.component';
+import { EditDataComponent } from './page-components/index-charts/edit-data/edit-data.component';
+import { IndexChartsComponent } from './page-components/index-charts/index-charts.component';
 import { HomePageComponent } from './page-components/home/home.component';
+import { InsuranceComponent } from './page-components/customizations/insurance/insurance.component';
 import { PlayChartComponent } from './page-components/customizations/play-chart/play-chart.component';
 import { PlayerComponent } from './page-components/customizations/player/player.component';
 import { ReplayComponent } from './page-components/dashboard/replay/replay.component';
 import { RoiChartsComponent } from './page-components/dashboard/roi-charts/roi-charts.component';
+import { SimDataComponent } from './page-components/index-charts/sim-data/sim-data.component';
 import { SimulationPageComponent } from './page-components/simulation/simulation.component';
 import { TableComponent } from './page-components/customizations/table/table.component';
 import { TippingComponent } from './page-components/customizations/tipping/tipping.component';
 import { UnitResizingComponent } from './page-components/customizations/unit-resizing/unit-resizing.component';
+import { VisualizeDataComponent } from './page-components/index-charts/visualize-data/visualize-data.component';
 import { WongingComponent } from './page-components/customizations/wonging/wonging.component';
 
 const canMatchDashboard: CanMatchFn = () => {
@@ -46,8 +49,20 @@ export const routes: Routes = [
     component: SimulationPageComponent,
   },
   {
-    path: 'deviations',
-    component: DeviationsPageComponent,
+    path: 'index-charts',
+    component: IndexChartsComponent,
+  },
+  {
+    path: 'sim-data',
+    component: SimDataComponent,
+  },
+  {
+    path: 'visualize-data',
+    component: VisualizeDataComponent,
+  },
+  {
+    path: 'edit-data',
+    component: EditDataComponent,
   },
   {
     path: 'conditions',
@@ -86,8 +101,8 @@ export const routes: Routes = [
     component: WongingComponent,
   },
   {
-    path: 'deviation-charting',
-    component: DeviationChartingComponent,
+    path: 'insurance',
+    component: InsuranceComponent,
   },
   {
     path: 'dashboard',

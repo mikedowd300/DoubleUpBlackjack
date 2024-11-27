@@ -3,9 +3,12 @@ import {
   ChipTypeEnum,
   ConditionsEnum,
   DoubleDownOnEnum,
+  HandActionEnum,
+  HandOutcomeEnum,
   InputTypeEnum,
   PayRatioEnum,
   RoundingMethodEnum,
+  SpotStatusEnum,
   TrueCountTypeEnum,
 } from './enumerations';
 
@@ -26,11 +29,13 @@ export interface CountingMethodValueMap {
 };
 
 export interface CountingMethod {
-  name: string,
+  title: string,
   valuesMap: CountingMethodValueMap,
   startingCount: number;
   isBalanced: boolean;
   convertsToTC: boolean;
+  roundingMethod: RoundingMethodEnum;
+  useHalfCount: boolean;
 }
 
 export interface CountingMethodMap {
@@ -41,6 +46,13 @@ export interface CustomizationLink {
   title: string;
   description: string;
   linkUrl: string;
+}
+
+export interface PlayStrategyCombo {
+  [k: string]: {
+    conditions: string,
+    options: string;
+  }
 }
 
 export interface RuleInput {
@@ -64,13 +76,21 @@ export interface PlayActionOptions {
 }
 
 export interface Wong {
-  enter: number,
+  enterAt: number,
   exitBelow: number;
+  isActive: boolean;
 }
 
 export interface WongStrategy {
   title: string;
   wongedHands: Wong[];
+}
+
+export interface InsurancePlan {
+  title: string;
+  alwaysInsure: boolean;
+  neverInsure: boolean;
+  aboveTCof: number;
 }
 
 export interface Conditions {
@@ -114,27 +134,6 @@ export interface BetSpreadStrategy {
   useHalfCount: boolean;
 }
 
-export interface CountingStrategy {
-  title: string;
-  count: {
-    'A': number;
-    '2': number;
-    '3': number;
-    '4': number;
-    '5': number;
-    '6': number;
-    '7': number;
-    '8': number;
-    '9': number;
-    'J': number;
-    'Q': number;
-    'K': number;
-  }
-  runningCountStartsAt: number;
-  trueCountPreference: TrueCountTypeEnum;
-  convertToTrueCount: boolean;
-};
-
 export interface PlayerConfig {
   title: string;
   description: string;
@@ -146,6 +145,7 @@ export interface PlayerConfig {
   tippngStrategyTitle: string;
   wongingStrategyTitle: string;
   countStrategyTitle: string;
+  insurancePlanTitle: string;
 }
 
 export interface TippingPlan {
@@ -158,10 +158,11 @@ export interface TippingPlan {
   tipFirstHandOfShoe: boolean;
   playerIncreasesBet: boolean;
   everyXHands: number;
-  tipSplitHandToo: boolean;
-  doubleOnDouble: boolean;
   tipWongHands: boolean;
-  insureDealerTip: boolean;
+  tipSplitHandToo: boolean;
+  doubleDownTip: boolean;
+  doubleUpTip: boolean;
+  insureTip: boolean;
 };
 
 export interface UnitResizeStrategy {
@@ -187,7 +188,8 @@ export type AnyStrategy =
   | PlayStrategy
   | PlayerConfig
   | TableConfig
-  | CountingStrategy
+  | CountingMethod
+  | InsurancePlan
 
 export interface SpotUIproperty {
   description: string;
@@ -220,4 +222,54 @@ export interface TableConfig {
 export interface PlayerTableInfo {
   seatNumber: number;
   playerConfigTitle: string;
+}
+
+export interface TableSpotsInformation {
+  spotsPertable: number;
+  playerSpotMap: any;
+}
+
+export interface TableSpot {
+  status: SpotStatusEnum;
+  controlledBy: string;
+  id: number;
+}
+
+export interface CardInfo {
+  image: string;
+  name: string;
+}
+
+export interface HandHistory {
+  betSize?: number;
+  cards?: CardInfo[];
+  value?: number;
+  actions?: HandActionEnum[];
+  outcome?: HandOutcomeEnum;
+  winnings?: number;
+  isFromSplit?: boolean;
+  didSurrender?: boolean;
+  isFromWong?: boolean;
+  tipSize?: number;
+}
+
+export interface PlayerRoundHistory {
+  spotIds: number[];
+  hands: HandHistory[];
+  bankroll: number;
+  beginningTrueCount: number;
+}
+
+export interface WinningsChartDatum {
+  totalBet: number, 
+  totalWon: number,
+  instances: number,
+}
+
+export interface WinningsChartDataByPlayer {
+  [k: string]: WinningsChartDatum
+}
+
+export interface WinningsChartData {
+  [k: string]: WinningsChartDataByPlayer 
 }

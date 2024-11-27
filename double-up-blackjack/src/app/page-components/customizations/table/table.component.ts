@@ -44,6 +44,8 @@ export class TableComponent implements AfterViewInit, OnDestroy, OnInit {
     this.vmService.showHeader$.next(true);
     this.activeStrategy$.pipe(takeUntil(this.destroy$)).subscribe(strategy => {
       this.activeStrategy = strategy;
+      this.allPlayers = this.getAllPlayers();
+      this.availablePlayers = this.getAvailablePlayers();
       this.getSpotsPerTable(strategy.conditionsTitle);
     });
     this.getStrategies();
@@ -77,8 +79,7 @@ export class TableComponent implements AfterViewInit, OnDestroy, OnInit {
   }
 
   getAvailablePlayers(): string[] {
-    const activePlayers = this.activeStrategy.players
-      .map(p => p.playerConfigTitle);
+    const activePlayers = this.activeStrategy.players.map(p => p.playerConfigTitle);
     return this.allPlayers.filter(p => !activePlayers.includes(p))
   }
 
@@ -125,6 +126,7 @@ export class TableComponent implements AfterViewInit, OnDestroy, OnInit {
       playerConfigTitle: target.value 
     });
     this.availablePlayers = this.getAvailablePlayers();
+    console.log(this.availablePlayers);
     this.tableSpots$.next(this.createTable(this.spotsPerTable));
   }
 
