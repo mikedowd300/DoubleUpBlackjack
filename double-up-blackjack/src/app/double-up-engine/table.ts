@@ -44,6 +44,7 @@ export class Table {
       discard: (x) => this.shoe.discard(x),
       deal: () => this.shoe.deal(),
       getTrueCount: (x: CountingMethod, y: TrueCountTypeEnum) => this.shoe.getTrueCount(x, y),
+      getTrueCountByTenth: (x: CountingMethod, y: TrueCountTypeEnum) => this.shoe.getTrueCountByTenth(x, y),
       getRunningCount: (x: string) => this.shoe.getRunningCountsByMethodName(x),
       dealerHasBlackjack: () => this.dealerHasBlackjack(),
       getDealerUpCard: () => this.getDealerUpCard(),

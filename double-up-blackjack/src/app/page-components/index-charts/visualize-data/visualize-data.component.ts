@@ -97,7 +97,6 @@ export class VisualizeDataComponent implements AfterViewInit, OnInit {
   selectPlayersCards({ target }) {
 
     this.chartIds.forEach(id => {
-      console.log(Chart.getChart(id));
       if(Chart.getChart(id)) {
         Chart.getChart(id).destroy();
       }
@@ -212,7 +211,6 @@ export class VisualizeDataComponent implements AfterViewInit, OnInit {
     const chartIdIndex = this.chartIds.indexOf(chartId);
     const chartKey = Object.keys(this.playersCardsBasedDeviationData)[chartIdIndex];
     const chartData = this.shapeResultsByInstance(this.playersCardsBasedDeviationData[chartKey]);
-    console.log(target.value);
     const min = target.value > 0 ? 0 : parseInt(target.value);
     const max = target.value <= 0 ? 0 : parseInt(target.value);
     const options = {

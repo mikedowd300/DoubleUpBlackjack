@@ -25,10 +25,10 @@
       >
     </div>
     <div class="input-wrapper">
-      <label>Insure Above a True Count of:</label>
+      <label>Insure at or above a true count of:</label>
       <input 
         type="number"
-        [(ngModel)]="activeStrategy.aboveTCof"
+        [(ngModel)]="activeStrategy.atTCof"
         (change)="changePlan($event, 'trueCount')"
       >
     </div>

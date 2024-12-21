@@ -18,6 +18,7 @@ import {
   TrueCountTypeEnum, 
 } from '../models-constants-enums/enumerations';
 import { LocalStorageService } from '../services/local-storage.service';
+import { InsuranceHistory } from '../insurance-history/insurnce-history';
 
 export class Player {
   handle: string;
@@ -46,6 +47,8 @@ export class Player {
   betSize: number = null;
   trueCountType: TrueCountTypeEnum;
   beginningTrueCount: number;
+  insuranceHistory: InsuranceHistory = new InsuranceHistory();
+  hasUpdatedInsuranceHistory: boolean = false;
 
   constructor(
     playerInfo: PlayerTableInfo, 
@@ -147,6 +150,22 @@ export class Player {
     }
   }
 
+  updateInsuranceHistory() {
+    if(!this.hasUpdatedInsuranceHistory) {
+      const hasIt = this.shared.dealerHasBlackjack();
+      let trueCount = this.getTrueCountByTenth().toString();
+      if(!trueCount.includes('.')) {
+        trueCount += '.0';
+      }
+      this.insuranceHistory.updateInsuranceRecordByCount(trueCount, hasIt);
+      this.hasUpdatedInsuranceHistory = true;
+    }
+  }
+
+  getTrueCountByTenth() {
+    return this.shared.getTrueCountByTenth(this.countingMethod, this.trueCountType);
+  }
+
   getTrueCount() {
     return this.shared.getTrueCount(this.countingMethod, this.trueCountType);
   }
@@ -192,8 +211,9 @@ export class Player {
   }
 
   initializeRound(): void {
-    this.setBetSize(); 
+    this.hasUpdatedInsuranceHistory = false;
     this.resizeUnit();
+    this.setBetSize(); 
     this.wongIn();
     this.tip();
     this.beginningTrueCount = this.getTrueCount();
@@ -301,13 +321,14 @@ export class Player {
       const maxSpotId = Math.max( ...playerSpots);
       if(trueCount >= wongedHands[i].exitBelow) {
         if(wongedHands[i].isActive || trueCount >= wongedHands[i].enterAt) {
-          wongedHands[i].isActive = true;
           let newSpotId = null;
           if(minSpotId > 1 && this.shared.isSpotAvailable(minSpotId - 1)) {
             newSpotId = minSpotId - 1;
           } else if(maxSpotId < this.shared.getConditions().spotsPerTable) {
             newSpotId = maxSpotId + 1;
           }
+         if(newSpotId) {
+          wongedHands[i].isActive = true;
           this.wongSpotIds.push(newSpotId);
           this.addSpot(newSpotId);
           const tableSpot: TableSpot = {
@@ -317,6 +338,7 @@ export class Player {
           }
           this.shared.getSpotById(newSpotId).initializeSpot(tableSpot);
           this.incTotalBet(this.betSize);
+         }
         }
       } else {
         wongedHands[i].isActive = false;

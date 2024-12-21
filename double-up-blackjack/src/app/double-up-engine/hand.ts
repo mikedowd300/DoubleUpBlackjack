@@ -87,13 +87,14 @@ export class Hand {
   }
 
   placeInsuranceBet(amount: number = (this.betAmount / 2)): void  {
+    this.player.updateInsuranceHistory();
     if(this.player.insurancePlan.alwaysInsure) {
       this.insuranceAmount = amount;
     } else if(this.player.insurancePlan.neverInsure) {
       this.insuranceAmount = 0;
-    } else if(this.player.insurancePlan.aboveTCof) {
-      const tc = this.player.getTrueCount();
-      this.insuranceAmount = tc > this.player.insurancePlan.aboveTCof ? amount : 0;
+    } else if(this.player.insurancePlan.atTCof) {
+      const tc = this.player.getTrueCountByTenth();
+      this.insuranceAmount = tc >= this.player.insurancePlan.atTCof ? amount : 0;
     }
     if(this.insuranceAmount > 0) {
       this.record.actions.push(HandActionEnum.INSURE);

@@ -2,7 +2,6 @@ import {
   DealerRecord, 
   HandRecord,
   PlayerRecord, 
-  ShoeRecord, 
   SpotRecord, 
   TableRecord 
 } from "./history-models";
@@ -19,17 +18,12 @@ export class History {
     this.activePlayers = [];
     this.activeRecord = {
       roundId: this.recordId,
-      // shoe: null,
       spots: [],
       players: [],
       dealer: null,
     }
     this.recordId += 1;
   }
-
-  // getShoeRecord(record: ShoeRecord): void {
-  //   this.activeRecord.shoe = { ...record };
-  // }
 
   getDealerRecord(record: DealerRecord): void {
     this.activeRecord.dealer = { ...record };

@@ -16,6 +16,8 @@ import { DoubleUpEngine } from '../../double-up-engine/double-up-engine';
 import { LoaderComponent } from '../../shared-components/loader/loader.component';
 import { LocalStorageService } from '../../services/local-storage.service';
 import { ReplayComponent } from './replay/replay.component';
+import { InsuranceResultsComponent } from './insurance-results/insurance-results.component';
+import { BreakEvenStreaksComponent } from './break-even-streaks/break-even-streaks.component';
 import { RoiChartsComponent } from './roi-charts/roi-charts.component';
 import { TableRecord } from '../../history/history-models';
 import { ViewModelService } from '../../services/view-model.service';
@@ -25,7 +27,9 @@ import { ViewModelService } from '../../services/view-model.service';
   standalone: true,
   imports: [ 
     BankrollChartComponent, 
+    BreakEvenStreaksComponent,
     CommonModule, 
+    InsuranceResultsComponent,
     LoaderComponent, 
     ReplayComponent,
     RoiChartsComponent,
@@ -43,9 +47,12 @@ export class DashboardComponent implements OnDestroy, OnInit {
   public activeRecordIndex$: BehaviorSubject<number> = new BehaviorSubject<number>(0); 
   public showBankrollChart$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   public showRoiChart$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  public showInsuranceResults$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  public showStreakInfo$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   public replayHandAtIndex$: Subject<number> = new Subject<number>();
   public bankrollData$: Observable<any>;
   public players$: Observable<any>;
+  public insuranceHistory$: Observable<any>;
   private destroy$ = new Subject();
   private engine: DoubleUpEngine;
 
@@ -58,7 +65,8 @@ export class DashboardComponent implements OnDestroy, OnInit {
     this.engine = new DoubleUpEngine(this.localStorageService, this.vmService);
     this.vmService.showHeader$.next(true);
     this.vmService.setAllowNavigationToDashboard(false);
-    this.history$ = this.vmService.simData$.pipe(filter(x => !!x))
+    this.history$ = this.vmService.simData$.pipe(filter(x => !!x));
+    this.insuranceHistory$ = this.vmService.insuranceResults$;
     this.players$ = this.history$.pipe(map(x => x[0].players.map(p => p.handle)));
     this.bankrollData$ = combineLatest([this.players$, this.history$ ])
       .pipe(map(([players, rounds]) => {
@@ -77,7 +85,6 @@ export class DashboardComponent implements OnDestroy, OnInit {
 
     this.bankrollData$.pipe(takeUntil(this.destroy$)).subscribe(() => {
       const tippedAway = {};
-      console.log(this.engine);
       this.engine.table.players.forEach((p) => tippedAway[p.handle] = p.tippedAwayTotal)
       this.vmService.tippedAway$.next(tippedAway);
     });
@@ -93,7 +100,7 @@ export class DashboardComponent implements OnDestroy, OnInit {
 
   ngOnDestroy() {
     this.destroy$.next(true);
-    // this.showLoader$.next(true);
-    // this.vmService.simData$.next(null);
+    this.showLoader$.next(true);
+    this.vmService.simData$.next(null);
   }
 }

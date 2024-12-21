@@ -37,7 +37,7 @@ export class BankrollChartComponent implements OnInit {
 
   ngOnInit(): void {
     this.vmService.showHeader$.next(true);
-    this.chartData = { ...this.bankrollData }
+    this.chartData = { ...this.bankrollData };
     this.handles = Object.keys(this.bankrollData);
     this.activeHandle = this.handles[0];
     Chart.register(...registerables);

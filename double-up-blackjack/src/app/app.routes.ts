@@ -22,6 +22,7 @@ import { TippingComponent } from './page-components/customizations/tipping/tippi
 import { UnitResizingComponent } from './page-components/customizations/unit-resizing/unit-resizing.component';
 import { VisualizeDataComponent } from './page-components/index-charts/visualize-data/visualize-data.component';
 import { WongingComponent } from './page-components/customizations/wonging/wonging.component';
+import { PracticeComponent } from './page-components/practice/practice.component';
 
 const canMatchDashboard: CanMatchFn = () => {
   const service = inject(ViewModelService);
@@ -120,5 +121,9 @@ export const routes: Routes = [
   {
     path: 'roi-charts',
     component: RoiChartsComponent,
+  },
+  {
+    path: 'practice',
+    component: PracticeComponent,
   }
 ];

@@ -90,7 +90,7 @@ export interface InsurancePlan {
   title: string;
   alwaysInsure: boolean;
   neverInsure: boolean;
-  aboveTCof: number;
+  atTCof: number;
 }
 
 export interface Conditions {
@@ -272,4 +272,17 @@ export interface WinningsChartDataByPlayer {
 
 export interface WinningsChartData {
   [k: string]: WinningsChartDataByPlayer 
+}
+
+export interface InsuranceInstance {
+  instances: number;
+  hasItCount: number
+}
+
+export interface InsuranceRecordByCount {
+  [k: string]: InsuranceInstance;
+}
+
+export interface InsuranceDataByPlayer {
+  [k: string]: InsuranceRecordByCount;
 }

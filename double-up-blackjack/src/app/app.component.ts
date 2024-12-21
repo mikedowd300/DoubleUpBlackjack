@@ -20,6 +20,7 @@ import { TippingComponent } from './page-components/customizations/tipping/tippi
 import { UnitResizingComponent } from './page-components/customizations/unit-resizing/unit-resizing.component';
 import { VisualizeDataComponent } from './page-components/index-charts/visualize-data/visualize-data.component';
 import { WongingComponent } from './page-components/customizations/wonging/wonging.component';
+import { PracticeComponent } from './page-components/practice/practice.component';
 
 @Component({
   selector: 'app-root',
@@ -38,6 +39,7 @@ import { WongingComponent } from './page-components/customizations/wonging/wongi
     LoaderComponent,
     PlayChartComponent,
     PlayerComponent,
+    PracticeComponent,
     RouterOutlet,
     SimDataComponent,
     SimulationPageComponent,

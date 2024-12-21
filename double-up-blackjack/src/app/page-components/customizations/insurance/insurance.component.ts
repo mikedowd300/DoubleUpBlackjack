@@ -42,15 +42,15 @@ export class InsuranceComponent implements OnInit, OnDestroy {
     if(insurancePlanType === 'alwaysInsure') {
       this.activeStrategy.alwaysInsure = true;
       this.activeStrategy.neverInsure = false;
-      this.activeStrategy.aboveTCof = null;
+      this.activeStrategy.atTCof = null;
     } else if(insurancePlanType === 'neverInsure') {
       this.activeStrategy.alwaysInsure = false;
       this.activeStrategy.neverInsure = true;
-      this.activeStrategy.aboveTCof = null;
+      this.activeStrategy.atTCof = null;
     } else if(insurancePlanType === 'trueCount') {
       this.activeStrategy.alwaysInsure = false;
       this.activeStrategy.neverInsure = false;
-      this.activeStrategy.aboveTCof = target.value;
+      this.activeStrategy.atTCof = target.value;
     }
   }
 }

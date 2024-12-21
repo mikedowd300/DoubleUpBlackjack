@@ -7,17 +7,10 @@
       <button class="button-tile" (click)="showReplay$.next(true)">Replay Hands</button>
       <button class="button-tile" (click)="showBankrollChart$.next(true)">Bankroll Chart</button>
       <button class="button-tile" (click)="showRoiChart$.next(true)">Roi Chart</button>
-      <!-- <button class="button-tile" (click)="showStreakInfo$.next(true)">Losing Streaks</button> -->
-      <p>Bar Chart of total winnings at each count</p>
-      <p>Bar chart of average winnings at each count</p>
-      <p>Bar chart of ROI at each count</p>
+      <button class="button-tile" (click)="showInsuranceResults$.next(true)">Insurance Analysis</button>
+      <button class="button-tile" (click)="showStreakInfo$.next(true)">Break Even Streaks</button>
       <p># of losing streaks greater than 100, 1000, 10000, 100000 rounds</p>
       <p>Down swings in terms of betting units and duration</p>
-      <p>Win rate for 16 against a A at counts from -10 to + 10 when the player hits stay or surrenders</p>
-      <p>Win rate for 16 against a 10 at counts from -10 to + 10 when the player hits stay or surrenders</p>
-      <p>Win rate for 16 against a 9 - 2 at counts from -10 to + 10 when the player hits stay or surrenders</p>
-      <p>Same for 15, 14, 13, 12</p>
-      <p>???</p>
     </div>
   }
   @if(!(showLoader$ | async) && (showReplay$ | async)) {
@@ -40,5 +33,19 @@
       [history$]="history$"
       [handles]="vmService.playerHandles"
     ></roi-charts>
+  }
+  @if(!(showLoader$ | async) && (showInsuranceResults$ | async)) {
+    <insurance-results
+      [showInsuranceResults$]="showInsuranceResults$"
+      [history]="insuranceHistory$ | async"
+      [handles]="vmService.playerHandles"
+    ></insurance-results>
+  }
+  @if(!(showLoader$ | async) && (showStreakInfo$ | async)) {
+    <break-even-streaks
+      [showStreakInfo$]="showStreakInfo$"
+      [streaks]="{}"
+      [handles]="vmService.playerHandles"
+    ></break-even-streaks>
   }
 </div>

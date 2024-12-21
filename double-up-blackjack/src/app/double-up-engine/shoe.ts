@@ -250,6 +250,10 @@ export class Shoe {
     return this.runningCounts[method.title];
   }
 
+  getTrueCountByTenth(method: CountingMethod, trueCountType: TrueCountTypeEnum): number {
+    return Math.round((this.runningCounts[method.title] * 10) / this.getDecksRemaining()) / 10;
+  }
+
   getShoeCount = (): number => this.shoeCount;
 
   getIsFreshShoe = (): boolean => this.isFreshShoe;

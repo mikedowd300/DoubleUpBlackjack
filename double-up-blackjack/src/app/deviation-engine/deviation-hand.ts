@@ -74,41 +74,18 @@ export class DeviationHand {
       .split(' ')
       .map(op => this.actionMap[op.trim()]);
 
-    // if(this.isFromSplit && (this.getValue() === 11 || this.getValue() === 10)) {
-    //   console.log('this.playStrategy[this.chartKey].options', this.playStrategy[this.chartKey].options);
-    // }
-
-
-    // if(this.isFromSplit && (this.getValue() === 11 || this.getValue() === 10)) {
-    //   console.log('isDoubleable() options:', options);
-    // }
-
     let conditions: string[] = this.playStrategy[this.chartKey].conditions
       .split(' ')
       .filter(c => c != '')
       .map(c => c.trim());
 
-    
-    // if(this.isFromSplit && (this.getValue() === 11 || this.getValue() === 10)) {
-    //   console.log('isDoubleable() conditions:', conditions);
-    // }
-
     while(conditions.length < options.length) {
       conditions.push('?')
     }
 
-    // if(this.isFromSplit && (this.getValue() === 11 || this.getValue() === 10)) {
-    //   console.log('isDoubleable() conditions:', conditions);
-    // }
-
     let actionConditions: any[] = options
       .map((op, i) => ({ [op]: (conditions[i] ? this.evaluateCondition(conditions[i]) : true) }))
       .filter((x, i) => this.options.includes(options[i]));
-
-    
-    // if(this.isFromSplit && (this.getValue() === 11 || this.getValue() === 10)) {
-    //   console.log('isDoubleable() actionConditions:', actionConditions);
-    // }
 
     let i = 0;
     let action: string = Object.keys(actionConditions[0])[0];
@@ -116,10 +93,6 @@ export class DeviationHand {
       i++;
       action = Object.keys(actionConditions[i])[0];
     }
-
-    // if(this.isFromSplit && (this.getValue() === 11 || this.getValue() === 10)) {
-    //   console.log('isDoubleable() action:', action);
-    // }
 
     this.decisionMap[action]();
   }
@@ -290,10 +263,6 @@ export class DeviationHand {
     }
     if(this.isDoubleable()) {
       this.options.push(HandOptionEnums.DOUBLE);
-      
-      // if(this.isFromSplit && (this.getValue() === 11 || this.getValue() === 10)) {
-      //   console.log('isDoubleable(): options', this.options);
-      // }
     }
     if(this.isDoubleUpable()) {
       this.options.push(HandOptionEnums.DOUBLE_UP);

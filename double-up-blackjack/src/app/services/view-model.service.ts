@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { SimInfo } from '../models-constants-enums/models';
+import { InsuranceDataByPlayer, SimInfo } from '../models-constants-enums/models';
 import { TableRecord } from '../history/history-models';
 
 @Injectable({
@@ -14,6 +14,7 @@ export class ViewModelService {
   private simInfo: SimInfo = this.nullInfo;
   private allowNavigationToDashboard: boolean = false;
   public simData$: BehaviorSubject<TableRecord[]> = new BehaviorSubject<TableRecord[]>(null);
+  public insuranceResults$: BehaviorSubject<InsuranceDataByPlayer> = new BehaviorSubject<InsuranceDataByPlayer>(null);
   public tippedAway$: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
   constructor() { }

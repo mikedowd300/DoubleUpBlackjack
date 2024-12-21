@@ -24,6 +24,14 @@ export const wong1MoreSpot: WongStrategy = {
   ]
 };
 
+export const wong2MoreQuick: WongStrategy = {
+  title: '2 More Quick',
+  wongedHands: [
+    { enterAt: 2, exitBelow: 2, isActive: false },
+    { enterAt: 3, exitBelow: 3, isActive: false },
+  ]
+};
+
 export const neverWong: WongStrategy = {
   title: 'Never Wong',
   wongedHands: [],
@@ -32,7 +40,8 @@ export const neverWong: WongStrategy = {
 export const wongingTitles: string[] = [
   '1 More Spot', 
   '2 More Spots', 
-  '3 More Spots', 
+  '3 More Spots',
+  '2 More Quick',
   'Never Wong'
 ];
 
@@ -40,5 +49,6 @@ export const defaultWongings: { [k: string]: WongStrategy } = {
   '1 More Spot': wong1MoreSpot, 
   '2 More Spots': wong2MoreSpots, 
   '3 More Spots': wong3MoreSpots, 
+  '2 More Quick': wong2MoreQuick,
   'Never Wong': neverWong,
 };

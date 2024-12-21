@@ -121,12 +121,37 @@ export const lite6: CountingMethod = {
   useHalfCount: false,
 };
 
+export const optimizedInsurance: CountingMethod = {
+  title: 'Optimized Insurance', 
+  valuesMap: {
+    [CardNameEnum.C_A]: 0,
+    [CardNameEnum.C_2]: 0,
+    [CardNameEnum.C_3]: 1,
+    [CardNameEnum.C_4]: 1,
+    [CardNameEnum.C_5]: 1,
+    [CardNameEnum.C_6]: 1,
+    [CardNameEnum.C_7]: 0,
+    [CardNameEnum.C_8]: 0,
+    [CardNameEnum.C_9]: 0,
+    [CardNameEnum.C_T]: -1,
+    [CardNameEnum.C_J]: -1,
+    [CardNameEnum.C_Q]: -1,
+    [CardNameEnum.C_K]: -1,
+  },
+  startingCount: 0,
+  convertsToTC: true,
+  isBalanced: true,
+  roundingMethod: RoundingMethodEnum.DOWN,
+  useHalfCount: false,
+};
+
 export const countTitles: string[] = [
   'Hi Lo', 
   'Ace 5', 
   'No Count', 
   'Heavy 6', 
-  'Lite 6'
+  'Lite 6',
+  'Optimized Insurance'
 ];
 
 export const defaultCounts: { [k: string]: CountingMethod } = {
@@ -135,4 +160,5 @@ export const defaultCounts: { [k: string]: CountingMethod } = {
   'No Count': NoCount,
   'Heavy 6': heavy6,
   'Lite 6': lite6,
+  'Optimized Insurance' :optimizedInsurance,
 };

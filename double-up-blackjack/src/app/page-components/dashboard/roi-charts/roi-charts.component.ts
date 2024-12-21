@@ -1,7 +1,7 @@
 import { Component, Input, OnDestroy, OnInit} from '@angular/core';
 import { AsyncPipe, CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { BehaviorSubject, combineLatest, map, Observable, Subject, take, withLatestFrom } from 'rxjs';
+import { BehaviorSubject, combineLatest, map, Observable, Subject, take } from 'rxjs';
 import { SpotRecord, TableRecord } from '../../../history/history-models';
 import { Chart, ChartItem, registerables } from 'chart.js';
 import { WinningsChartData, WinningsChartDatum } from '../../../models-constants-enums/models';

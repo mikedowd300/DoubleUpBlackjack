@@ -4,13 +4,13 @@ import { ChipTypeEnum, RoundingMethodEnum } from "../models-constants-enums/enum
 export const resizeReduceRisk: UnitResizeStrategy = {
   title: 'Resize Reduce Risk',
   unitProgression: [
-    1, 1.2, 1.4, 1.6, 2, 2.5, 3, 3.5, 4, 5, 6, 7, 8, 10
+    1, 2, 3, 4, 5, 6, 7, 8, 10
   ],
   increaseAtMultiple: [
-    1000, 1200, 1700, 2200, 2900, 4000, 5000, 7200, 8800, 10500, 14000, 18000, 22500, null
+    30000, 70000, 110000, 150000, 200000, 250000, 300000, 350000, 400000, null
   ],
   decreaseAtMultiple: [
-    null, 900, 1100, 1300, 1500, 1700, 1900, 2100, 2300, 2500, 2700, 2900, 3100, 3300
+    null, 50000, 90000, 130000, 170000, 220000, 270000, 320000, 370000 
   ],
   roundToNearest: ChipTypeEnum.RED,
   roundingMethod: RoundingMethodEnum.UP

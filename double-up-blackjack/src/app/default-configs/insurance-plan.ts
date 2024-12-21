@@ -4,21 +4,21 @@ export const neverInsure: InsurancePlan = {
   title: "Never Insure",
   alwaysInsure: false,
   neverInsure: true,
-  aboveTCof: null,
+  atTCof: null,
 };
 
 export const alwaysInsure: InsurancePlan = {
   title: "Always Insure",
   alwaysInsure: true,
   neverInsure: false,
-  aboveTCof: null,
+  atTCof: null,
 };
 
 export const insureAbove3: InsurancePlan = {
   title: "Insure Above True 3",
   alwaysInsure: false,
   neverInsure: false,
-  aboveTCof: 3,
+  atTCof: 3,
 };
 
 export const insuranceTitles: string[] = [
